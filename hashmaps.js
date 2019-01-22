@@ -11,9 +11,10 @@ class HashMap {
   //get
   get(key) {
     const index = this._findSlot(key);
-    if(this._slots[index] == undefined){
+    if(this._slots[index] === undefined){
       throw new Error('Key error');
     }
+    console.log(this._slots[index]);
     return this._slots[index].value;
   }
 
@@ -24,12 +25,24 @@ class HashMap {
       this._resize(this._capacity * HashMap.SIZE_RATIO);
     }
     const index = this._findSlot(key);
-    this._slots[index] = {
-      key,
-      value,
-      deleted: false,
-    };
-    this.length++;
+
+    if (this._slots[index] === undefined) {
+        
+      this._slots[index] = {
+        key,
+        value,
+        deleted: false,
+      };
+      console.log(this._slots[index]);
+      this.length++;
+    } else {
+    
+      this._slots[index] = {
+        key,
+        value,
+        deleted: false,
+      };
+    }
 
   }
 
@@ -89,3 +102,42 @@ class HashMap {
 HashMap.MAX_LOAD_RATIO = 0.7;
 
 HashMap.SIZE_RATIO = 3;
+
+// let lor = new HashMap();
+
+// lor.set({Hobbit:"Bilbo"})
+// lor.set({Hobbit:"Frodo"})
+// lor.set({Wizard:"Gandolf"})
+// lor.set({Human:"Aragon"})
+// lor.set({Elf: "Legolas"})
+// lor.set({Maiar:"The Necromancer"})
+// lor.set({Maiar: "Sauron"})
+// lor.set({RingBearer:"Gollum"})
+// lor.set({LadyOfLight:"Galadriel"})
+// lor.set({HalfElven:"Arwen"})
+// lor.set({Ent:"Treebeard"})
+
+// console.log(lor.length);
+
+
+function main(){
+  const lor = new HashMap();
+
+  lor.set('Hobbit', "Bilbo");
+  lor.set('Hobbit', "Frodo");
+  lor.set('Wizard', "Gandolf");
+  lor.set('Human', "Aragon");
+  lor.set('Elf', "Legolas");
+  lor.set('Maiar',"The Necromancer");
+  lor.set('Maiar', "Sauron");
+  lor.set('RingBearer', "Gollum");
+  lor.set('LadyOfLight', "Galadriel");
+  lor.set('HalfElven', "Arwen");
+  lor.set('Ent', "Treebeard");
+  
+  console.log(lor.length);
+
+  console.log(lor.get('Maiar'));
+}
+
+main();
